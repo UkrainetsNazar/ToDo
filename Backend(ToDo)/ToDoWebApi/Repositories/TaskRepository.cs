@@ -28,18 +28,21 @@ public class TaskRepository : ITaskRepository
         return task;
     }
 
-    public async Task AddTaskAsync(MyTask myTask)
+    public async Task AddTaskAsync(string userId, MyTask myTask)
     {
+        myTask.UserId = userId;
+
         await _dbContext.Tasks.AddAsync(myTask);
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task UpdateTaskAsync(int id, MyTask updatedTask)
+    public async Task UpdateTaskAsync(string userId, int id, MyTask updatedTask)
     {
-        var existingTask = await _dbContext.Tasks.FindAsync(id);
+        var existingTask = await _dbContext.Tasks
+            .FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
 
         if (existingTask == null)
-            throw new Exception($"Task with id {id} does not exist");
+            throw new Exception($"Task with id {id} not found or access denied");
 
         existingTask.IsDone = updatedTask.IsDone;
         existingTask.Text = updatedTask.Text;
@@ -47,12 +50,13 @@ public class TaskRepository : ITaskRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteTaskAsync(int id)
+    public async Task DeleteTaskAsync(string userId, int id)
     {
-        var task = await _dbContext.Tasks.FindAsync(id);
+        var task = await _dbContext.Tasks
+            .FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
 
         if (task == null)
-            throw new Exception($"There is nothing to delete");
+            throw new Exception($"Task with id {id} not found or access denied");
 
         _dbContext.Tasks.Remove(task);
         await _dbContext.SaveChangesAsync();
