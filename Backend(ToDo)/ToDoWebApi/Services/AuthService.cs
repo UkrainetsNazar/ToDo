@@ -3,7 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using ToDoWebApi.Models;
 
-public class AuthService
+public class AuthService : IAuthService
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly IMapper _mapper;
@@ -14,7 +14,7 @@ public class AuthService
         _mapper = mapper;
         _userManager = userManager;
     }
-    public async Task Register(RegisterDTO model)
+    public async Task RegisterAsync(AuthDTO model)
     {
 
         if (await _userManager.FindByEmailAsync(model.Email!) != null)
@@ -28,17 +28,17 @@ public class AuthService
             throw new HttpException(string.Join(" ", result.Errors.Select(x => x.Description)), HttpStatusCode.BadRequest);
     }
 
-    public async Task<LoginDTO> Login(RegisterDTO model)
+    public async Task<ResponseDTO> LoginAsync(AuthDTO model)
     {
         var user = await _userManager.FindByEmailAsync(model.Email!);
 
         if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password!))
             throw new HttpException("Invalid login or password.", HttpStatusCode.BadRequest);
 
-        return new LoginDTO
+        return new ResponseDTO
         {
             Email = user.Email,
-            Token = _jwtService.GenerateToken(user)
+            Token = _jwtService.GenerateToken(user.Id, user.Email!)
         };
     }
 }

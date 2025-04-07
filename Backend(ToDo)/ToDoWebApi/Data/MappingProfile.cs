@@ -6,5 +6,6 @@ public class MappingProfile : Profile
     {
         CreateMap<CreateTaskDTO, MyTask>().ReverseMap();
         CreateMap<GetTasksDTO, MyTask>().ReverseMap();
+        CreateMap<AuthDTO, AppUser>().ReverseMap();
     }
 }
