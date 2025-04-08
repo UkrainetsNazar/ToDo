@@ -22,15 +22,15 @@ public class JwtService
             new Claim(ClaimTypes.Email, email)
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JwtOptions:Key"]!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        var expiry = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_config["Jwt:ExpiresIn"]));
+        var expiry = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_config["JwtOptions:ExpiresIn"]));
 
         var token = new JwtSecurityToken(
-            issuer: _config["Jwt:Issuer"],
-            audience: _config["Jwt:Audience"],
+            issuer: _config["JwtOptions:Issuer"],
+            audience: _config["JwtOptions:Audience"],
             claims: claims,
-            expires: expiry,
+            expires: DateTime.UtcNow.AddHours(24),
             signingCredentials: creds
         );
 

@@ -2,7 +2,9 @@ using ToDoWebApi.Models;
 
 public interface ITaskService{
     Task<List<GetTasksDTO>> GetAllUserTasksAsync(string userId);
-    Task AddNewTaskAsync(string userId, CreateTaskDTO createTaskDto);
+    Task<MyTask> GetTaskByIdAsync(string userId, int taskId);
+    Task AddTaskAsync(string userId, CreateTaskDTO createTaskDto);
     Task DeleteTaskAsync(string userId, int taskId);
-    Task EditTaskAsync(string userId, int taskId, CreateTaskDTO updatedTaskDto);
+    Task UpdateTaskAsync(string userId, int taskId, CreateTaskDTO updatedTaskDto);
+    Task MarkTaskAsDoneAsync(string userId, int taskId);
 }

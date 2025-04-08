@@ -15,7 +15,7 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] AuthDTO model)
     {
-        if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.Password))
+        if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.PasswordHash))
             throw new HttpException("Email and password are required.", HttpStatusCode.BadRequest);
 
         if (!new EmailAddressAttribute().IsValid(model.Email))
@@ -28,7 +28,7 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] AuthDTO model)
     {
-        await _authService.LoginAsync(model);
-        return Ok("Login succeed");
+        var response = await _authService.LoginAsync(model);
+        return Ok(response);
     }
 }

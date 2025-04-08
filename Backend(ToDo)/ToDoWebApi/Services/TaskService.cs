@@ -14,11 +14,11 @@ public class TaskService : ITaskService
 
     public async Task<List<GetTasksDTO>> GetAllUserTasksAsync(string userId)
     {
-        var allUserTasks = await _taskRepository.GetAllTasksAsync(userId);
+        var allUserTasks = await _taskRepository.GetAllUserTasksAsync(userId);
         return _mapper.Map<List<GetTasksDTO>>(allUserTasks);
     }
 
-    public async Task AddNewTaskAsync(string userId, CreateTaskDTO createTaskDto)
+    public async Task AddTaskAsync(string userId, CreateTaskDTO createTaskDto)
     {
         var taskEntity = _mapper.Map<MyTask>(createTaskDto);
         taskEntity.UserId = userId;
@@ -31,9 +31,20 @@ public class TaskService : ITaskService
         await _taskRepository.DeleteTaskAsync(userId, taskId);
     }
 
-    public async Task EditTaskAsync(string userId, int taskId, CreateTaskDTO updatedTaskDto)
+    public async Task UpdateTaskAsync(string userId, int taskId, CreateTaskDTO updatedTaskDto)
     {
         var updatedEntity = _mapper.Map<MyTask>(updatedTaskDto);
         await _taskRepository.UpdateTaskAsync(userId, taskId, updatedEntity);
+    }
+
+    public async Task MarkTaskAsDoneAsync(string userId, int taskId)
+    {
+        await _taskRepository.MarkTaskAsDoneAsync(userId, taskId);
+    }
+
+    public async Task<MyTask> GetTaskByIdAsync(string userId, int taskId)
+    {
+        var task = await _taskRepository.GetTaskByIdAsync(userId, taskId);
+        return task;
     }
 }

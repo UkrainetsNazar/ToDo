@@ -6,6 +6,8 @@ public class MappingProfile : Profile
     {
         CreateMap<CreateTaskDTO, MyTask>().ReverseMap();
         CreateMap<GetTasksDTO, MyTask>().ReverseMap();
-        CreateMap<AuthDTO, AppUser>().ReverseMap();
+        CreateMap<AuthDTO, AppUser>()
+        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.Email))
+        .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
     }
 }
