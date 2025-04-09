@@ -135,3 +135,31 @@ body.dark-theme #task-list li {
         inset 0 0 3px rgba(160, 64, 96, 0.2);
     color: #f0e6ee;
 }
+
+body.dark-theme .drop-zone {
+    background: rgba(50, 25, 50, 0.9);
+    box-shadow: 
+        0 4px 10px rgba(0, 0, 0, 0.3),
+        inset 0 1px 3px rgba(160, 64, 96, 0.2);
+    border: 1px solid rgba(160, 64, 96, 0.3);
+}
+
+body.dark-theme #complete-zone {
+    background: linear-gradient(135deg, rgba(30, 70, 40, 0.9), rgba(20, 60, 30, 0.9));
+    border-color: rgba(40, 100, 50, 0.5);
+}
+
+body.dark-theme #complete-zone i {
+    color: #50c070;
+    text-shadow: 0 0 8px rgba(80, 200, 120, 0.4);
+}
+
+body.dark-theme #delete-zone {
+    background: linear-gradient(135deg, rgba(70, 30, 40, 0.9), rgba(60, 20, 30, 0.9));
+    border-color: rgba(160, 64, 96, 0.5);
+}
+
+body.dark-theme #delete-zone i {
+    color: #d04060;
+    text-shadow: 0 0 8px rgba(208, 64, 96, 0.4);
+}

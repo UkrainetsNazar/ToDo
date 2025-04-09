@@ -23,18 +23,26 @@
             <button class="auth-button">Log out</button>
         </header>
         <main>
-            <div class="task-container">
-                <div id="input-container">
-                    <div class="icon">
-                        <img src="icons/checklist.png" alt="task-icon">
-                    </div>
-                    <input id="input-line" type="text" placeholder="Write your task here...">
-                    <button id="send-task">
-                        <img src="icons/paper-plane.png" alt="send-icon">
-                    </button>
+            <div class="drag-zones">
+                <div id="complete-zone" class="drop-zone">
+                    <i class="fas fa-check-circle"></i>
                 </div>
-                <ul id="task-list"></ul>
+                <div class="task-container">
+                    <div id="input-container">
+                        <div class="icon">
+                            <img src="icons/checklist.png" alt="task-icon">
+                        </div>
+                        <input id="input-line" type="text" placeholder="Write your task here...">
+                        <button id="send-task">
+                            <img src="icons/paper-plane.png" alt="send-icon">
+                        </button>
+                    </div>
+                    <ul id="task-list"></ul>
+                </div>
+                <div id="delete-zone" class="drop-zone">
+                    <i class="fas fa-trash-alt"></i>
+                </div>
             </div>
         </main>
-    </body>
+    </body>    
     </html>
