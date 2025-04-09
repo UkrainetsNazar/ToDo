@@ -12,9 +12,15 @@ public class TaskService : ITaskService
         _mapper = mapper;
     }
 
-    public async Task<List<GetTasksDTO>> GetAllUserTasksAsync(string userId)
+    public async Task<List<GetTasksDTO>> GetAllActiveTasksAsync(string userId)
     {
-        var allUserTasks = await _taskRepository.GetAllUserTasksAsync(userId);
+        var allUserTasks = await _taskRepository.GetAllActiveTasksAsync(userId);
+        return _mapper.Map<List<GetTasksDTO>>(allUserTasks);
+    }
+
+    public async Task<List<GetTasksDTO>> GetAllDoneTasksAsync(string userId)
+    {
+        var allUserTasks = await _taskRepository.GetAllDoneTasksAsync(userId);
         return _mapper.Map<List<GetTasksDTO>>(allUserTasks);
     }
 

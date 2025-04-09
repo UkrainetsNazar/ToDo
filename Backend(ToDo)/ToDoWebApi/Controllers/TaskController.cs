@@ -14,14 +14,25 @@ public class TaskController : ControllerBase
         _taskService = taskService;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetAllUserTasks()
+    [HttpGet("active")]
+    public async Task<IActionResult> GetAllActiveUserTasks()
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (userId is null)
             return Unauthorized();
 
-        var taskList = await _taskService.GetAllUserTasksAsync(userId);
+        var taskList = await _taskService.GetAllActiveTasksAsync(userId);
+        return Ok(taskList);
+    }
+
+    [HttpGet("done")]
+    public async Task<IActionResult> GetAllDoneUserTasks()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId is null)
+            return Unauthorized();
+
+        var taskList = await _taskService.GetAllDoneTasksAsync(userId);
         return Ok(taskList);
     }
 

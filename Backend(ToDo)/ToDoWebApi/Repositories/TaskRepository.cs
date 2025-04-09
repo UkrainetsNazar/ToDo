@@ -10,10 +10,19 @@ public class TaskRepository : ITaskRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<MyTask>> GetAllUserTasksAsync(string userId)
+    public async Task<List<MyTask>> GetAllActiveTasksAsync(string userId)
     {
         return await _dbContext.Tasks
             .Where(t => t.UserId == userId)
+            .Where(t => t.IsDone == false)
+            .ToListAsync();
+    }
+
+    public async Task<List<MyTask>> GetAllDoneTasksAsync(string userId)
+    {
+        return await _dbContext.Tasks
+            .Where(t => t.UserId == userId)
+            .Where(t => t.IsDone == true)
             .ToListAsync();
     }
 
