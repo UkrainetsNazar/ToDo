@@ -1,48 +1,49 @@
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>ToDo Application</title>
-        <script src="js/script.js" defer></script>
-        <script src="js/theme.js" defer></script>
-        <script src="js/drag-and-drop.js" defer></script>
-        <link rel="stylesheet" href="css/light-theme.css">
-        <link rel="stylesheet" href="css/dark-theme.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    </head>
-    <body>
-        <header>
-            <button id="theme-toggle" class="theme-button">
-                <i class="fas fa-moon"></i>
-                <i class="fas fa-sun"></i>
-            </button>
-            <a href="https://github.com/UkrainetsNazar">
-                <img src="icons/git-hub-logo.png" alt="github-icon">
-            </a>
-            <button class="auth-button">Log out</button>
-        </header>
-        <main>
-            <div class="drag-zones">
-                <div id="complete-zone" class="drop-zone">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="task-container">
-                    <div id="input-container">
-                        <div class="icon">
-                            <img src="icons/checklist.png" alt="task-icon">
-                        </div>
-                        <input id="input-line" type="text" placeholder="Write your task here...">
-                        <button id="send-task">
-                            <img src="icons/paper-plane.png" alt="send-icon">
-                        </button>
-                    </div>
-                    <ul id="task-list"></ul>
-                </div>
-                <div id="delete-zone" class="drop-zone">
-                    <i class="fas fa-trash-alt"></i>
-                </div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo Application</title>
+    <script src="assets/js/main.js" defer></script>
+    <link rel="stylesheet" href="assets/css/light-theme.css">
+    <link rel="stylesheet" href="assets/css/dark-theme.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <button id="theme-toggle" class="theme-button">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun"></i>
+        </button>
+        <a href="https://github.com/UkrainetsNazar">
+            <img src="icons/git-hub-logo.png" alt="github-icon">
+        </a>
+        <button class="auth-button">Log out</button>
+    </header>
+    <main>
+        <div class="drag-zones">
+            <div id="complete-zone" class="drop-zone">
+                <i class="fas fa-check-circle"></i>
             </div>
-        </main>
-    </body>    
-    </html>
+            <div class="task-container">
+                <div id="input-container">
+                    <div class="icon">
+                        <img src="icons/checklist.png" alt="task-icon">
+                    </div>
+                    <input id="input-line" type="text" placeholder="Write your task here...">
+                    <button id="send-task">
+                        <img src="icons/paper-plane.png" alt="send-icon">
+                    </button>
+                </div>
+                <ul id="task-list"></ul>
+            </div>
+            <div id="delete-zone" class="drop-zone">
+                <i class="fas fa-trash-alt"></i>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
