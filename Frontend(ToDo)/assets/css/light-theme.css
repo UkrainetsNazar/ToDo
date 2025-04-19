@@ -418,59 +418,6 @@ main {
     margin-bottom: 2px;
 }
 
-.drag-zones {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    width: 100%;
-}
-
-
-.drop-zone {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 
-        0 4px 10px rgba(255, 143, 171, 0.2),
-        inset 0 1px 3px rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(255, 182, 193, 0.5);
-}
-
-.drop-zone i {
-    font-size: 30px;
-    transition: all 0.3s ease;
-}
-
-#complete-zone {
-    background: linear-gradient(135deg, rgba(200, 255, 210, 0.9), rgba(180, 240, 190, 0.9));
-    border-color: rgba(180, 220, 180, 0.7);
-    cursor: default;
-}
-
-#complete-zone i {
-    color: #70c97b;
-    text-shadow: 0 2px 5px rgba(112, 201, 123, 0.3);
-}
-
-#delete-zone {
-    background: linear-gradient(135deg, rgba(255, 220, 220, 0.9), rgba(255, 200, 200, 0.9));
-    border-color: rgba(240, 180, 180, 0.7);
-    cursor: default;
-}
-
-#delete-zone i {
-    color: #ff6b8b;
-    text-shadow: 0 2px 5px rgba(255, 107, 139, 0.3);
-}
-
 .filter-container {
     margin-bottom: 10px;
     position: relative;
