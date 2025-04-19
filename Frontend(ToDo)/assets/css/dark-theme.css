@@ -103,7 +103,6 @@ body.dark-theme .theme-button:hover {
     background: linear-gradient(135deg, #2a0a2a, #3a1a3a);
 }
 
-/* Scrollbar */
 body.dark-theme #task-list::-webkit-scrollbar {
     width: 8px;
 }
@@ -162,4 +161,49 @@ body.dark-theme #delete-zone {
 body.dark-theme #delete-zone i {
     color: #d04060;
     text-shadow: 0 0 8px rgba(208, 64, 96, 0.4);
+}
+
+body.dark-theme #filter-select {
+    background: rgba(40, 20, 40, 0.9);
+    color: #f0e6ee;
+    box-shadow: 
+        0 2px 5px rgba(0, 0, 0, 0.3),
+        inset 0 1px 2px rgba(160, 64, 96, 0.2);
+    border: 1px solid rgba(160, 64, 96, 0.4);
+}
+
+body.dark-theme #filter-select:hover {
+    background: rgba(50, 25, 50, 0.95);
+    border-color: #a04060;
+    box-shadow: 
+        0 3px 8px rgba(0, 0, 0, 0.4),
+        inset 0 1px 2px rgba(160, 64, 96, 0.3);
+}
+
+body.dark-theme #filter-select:focus {
+    background: rgba(60, 30, 60, 1);
+    border-color: #c05070;
+    box-shadow: 
+        0 0 0 2px rgba(160, 64, 96, 0.3),
+        inset 0 1px 2px rgba(160, 64, 96, 0.3);
+}
+
+body.dark-theme .filter-container::after {
+    color: #a04060;
+    text-shadow: 0 0 5px rgba(160, 64, 96, 0.5);
+}
+
+body.dark-theme #filter-select option {
+    background: #2a1a2a;
+    color: #f0e6ee;
+}
+
+body.dark-theme #filter-select option:hover {
+    background: #3a2a3a;
+    color: #ffffff;
+}
+
+body.dark-theme #filter-select:focus ~ .filter-container::after {
+    transform: translateY(-50%) rotate(180deg);
+    color: #c05070;
 }

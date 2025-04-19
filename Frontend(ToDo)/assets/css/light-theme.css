@@ -1,6 +1,5 @@
 * {
     margin: 0;
-    padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -209,6 +208,7 @@ main {
     border: 1px solid rgba(255, 182, 193, 0.5);
     backdrop-filter: blur(3px);
     transition: all 0.3s ease;
+    margin-bottom: 5px;
 }
 
 #input-container:focus-within {
@@ -244,8 +244,6 @@ main {
 #task-list {
     flex-grow: 1;
     background: rgba(255, 255, 255, 0.7);
-    margin-top: 15px;
-    padding: 15px;
     border-radius: 10px;
     overflow-y: auto;
     box-shadow: inset 0 2px 5px rgba(255, 182, 193, 0.2);
@@ -341,8 +339,6 @@ main {
 }
 
 .task-container::after {
-    content: "仕 事";
-    position: absolute;
     bottom: -25px;
     right: 20px;
     font-family: 'MS Mincho', 'SimSong', serif;
@@ -350,7 +346,6 @@ main {
     font-size: 24px;
     font-weight: bold;
     opacity: 0.3;
-    z-index: -1;
 }
 
 .popup-message {
@@ -420,7 +415,7 @@ main {
     white-space: normal;
     max-width: 100%;
     overflow: hidden;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .drag-zones {
@@ -474,4 +469,68 @@ main {
 #delete-zone i {
     color: #ff6b8b;
     text-shadow: 0 2px 5px rgba(255, 107, 139, 0.3);
+}
+
+.filter-container {
+    margin-bottom: 10px;
+    position: relative;
+    width: 30%;
+}
+
+#filter-select {
+    width: 100%;
+    padding: 10px 15px;
+    padding-right: 35px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #5a3d3d;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-shadow: 
+        0 2px 5px rgba(255, 143, 171, 0.1),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 182, 193, 0.5);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+#filter-select:hover {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 
+        0 3px 8px rgba(255, 143, 171, 0.2),
+        inset 0 1px 2px rgba(255, 255, 255, 0.9);
+    border-color: #ff8fab;
+}
+
+#filter-select:focus {
+    background: rgba(255, 255, 255, 1);
+    border-color: #ff6b8b;
+}
+
+.filter-container::after {
+    content: "\f078";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #ff8fab;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+#filter-select option {
+    background: #fff9fa;
+    color: #5a3d3d;
+    padding: 10px;
+}
+
+#filter-select option:hover {
+    background: #ffebee;
 }
