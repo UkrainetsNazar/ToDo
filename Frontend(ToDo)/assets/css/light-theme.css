@@ -394,30 +394,6 @@ main {
     color: #ff8fab;
 }
 
-#task-list {
-    list-style-type: none;
-    padding: 0;
-    min-height: 100px;
-}
-
-#task-list li {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 182, 193, 0.5);
-    cursor: grab;
-    user-select: none;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-    position: relative;
-    box-shadow: 0 2px 5px rgba(255, 182, 193, 0.1);
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-    max-width: 100%;
-    overflow: hidden;
-    margin-bottom: 2px;
-}
-
 .filter-container {
     margin-bottom: 10px;
     position: relative;
@@ -480,4 +456,82 @@ main {
 
 #filter-select option:hover {
     background: #ffebee;
+}
+
+#task-list {
+    list-style-type: none;
+    padding: 0;
+    min-height: 100px;
+}
+
+#task-list li {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 182, 193, 0.5);
+    cursor: grab;
+    user-select: none;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(255, 182, 193, 0.1);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
+    overflow: hidden;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-content {
+    flex-grow: 1;
+    padding-right: 10px;
+}
+
+.task-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.task-actions button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.complete-btn {
+    border: 1px solid rgba(112, 201, 123, 0.3);
+    color: #70c97b;
+}
+
+.delete-btn {
+    border: 1px solid rgba(255, 107, 139, 0.3);
+    color: #ff6b8b;
+}
+
+.task-actions button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.complete-btn:hover {
+    background: rgba(112, 201, 123, 0.1);
+}
+
+.delete-btn:hover {
+    background: rgba(255, 107, 139, 0.1);
+}
+
+.task-actions i {
+    font-size: 14px;
 }

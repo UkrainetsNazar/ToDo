@@ -207,3 +207,7 @@ body.dark-theme #filter-select:focus ~ .filter-container::after {
     transform: translateY(-50%) rotate(180deg);
     color: #c05070;
 }
+
+body.dark-theme .task-actions button{
+    background: #3a2a3a;
+}
