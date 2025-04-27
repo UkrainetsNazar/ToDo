@@ -535,3 +535,132 @@ main {
 .task-actions i {
     font-size: 14px;
 }
+
+#auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 182, 193, 0.3);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+#auth-overlay.hidden {
+    display: none;
+}
+
+.auth-modal {
+    background: #fff9fa;
+    padding: 30px 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(255, 143, 171, 0.2);
+    border: 1px solid rgba(255, 182, 193, 0.5);
+    width: 350px;
+    position: relative;
+    animation: showUp 0.5s ease;
+}
+
+@keyframes showUp {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.auth-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 182, 193, 0.5);
+    border-radius: 20px;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #ff6b8b;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #ffb7c5, #ff8fab);
+    color: white;
+    box-shadow: 0 4px 8px rgba(255, 143, 171, 0.3);
+}
+
+.tab-btn:hover {
+    background: linear-gradient(135deg, #ffd6e4, #ffb7c5);
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form.hidden {
+    display: none;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #5a3d3d;
+    font-weight: 600;
+}
+
+.form-group input {
+    padding: 10px 15px;
+    border: 1px solid rgba(255, 182, 193, 0.5);
+    border-radius: 10px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 15px;
+    color: #5a3d3d;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #ff8fab;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 5px rgba(255, 143, 171, 0.3);
+}
+
+.auth-submit-btn {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #ffb7c5, #ff8fab);
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(255, 143, 171, 0.3);
+}
+
+.auth-submit-btn:hover {
+    background: linear-gradient(135deg, #ff8fab, #ff6b8b);
+    transform: translateY(-2px);
+}
+
+.auth-submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(255, 143, 171, 0.2);
+}

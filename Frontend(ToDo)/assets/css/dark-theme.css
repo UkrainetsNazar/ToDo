@@ -211,3 +211,23 @@ body.dark-theme #filter-select:focus ~ .filter-container::after {
 body.dark-theme .task-actions button{
     background: #3a2a3a;
 }
+
+body.dark-theme .auth-modal {
+    background: #2a2a3a;
+    color: #f0f0f0;
+}
+
+body.dark-theme .tab-btn {
+    color: #aaa;
+}
+
+body.dark-theme .tab-btn.active {
+    color: #4a8fd6;
+    border-bottom-color: #4a8fd6;
+}
+
+body.dark-theme .form-group input {
+    background: #3a3a4a;
+    border-color: #4a4a5a;
+    color: #f0f0f0;
+}
