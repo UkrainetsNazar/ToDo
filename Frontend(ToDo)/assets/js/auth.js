@@ -1,4 +1,5 @@
 import { showPopup } from './popup.js';
+import { loadTasks, initTaskHandlers } from './tasks.js';
 
 const API_BASE_URL = 'http://localhost:5114';
 const AUTH_ENDPOINTS = {
@@ -17,11 +18,11 @@ export function initAuthHandlers() {
         btn.addEventListener('click', () => {
             tabBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            
+
             document.querySelectorAll('.auth-form').forEach(form => {
                 form.classList.add('hidden');
             });
-            
+
             document.getElementById(`${btn.dataset.tab}-form`).classList.remove('hidden');
         });
     });
@@ -30,7 +31,7 @@ export function initAuthHandlers() {
 
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const email = document.getElementById('register-email').value;
         const passwordHash = document.getElementById('register-password').value;
         const confirmPassword = document.getElementById('register-confirm').value;
@@ -46,17 +47,12 @@ export function initAuthHandlers() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    email,
-                    passwordHash
-                })
+                body: JSON.stringify({ email, passwordHash })
             });
 
             const data = await response.json();
 
-            if (!response.ok) {
-                throw new Error(data.message || 'Registration failed');
-            }
+            if (!response.ok) throw new Error(data.message || 'Registration failed');
 
             showPopup("Registration successful! Please login.", "success");
             document.querySelector('.tab-btn[data-tab="login"]').click();
@@ -70,7 +66,7 @@ export function initAuthHandlers() {
 
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const email = document.getElementById('login-email').value;
         const passwordHash = document.getElementById('login-password').value;
 
@@ -80,23 +76,20 @@ export function initAuthHandlers() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    email,
-                    passwordHash
-                })
+                body: JSON.stringify({ email, passwordHash })
             });
 
             const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message || 'Login failed');
-            }
+            if (!response.ok) throw new Error(data.message || 'Login failed');
 
             localStorage.setItem('authToken', data.token);
             updateAuthUI(true);
             authOverlay.classList.add('hidden');
             loginForm.reset();
-            
+
+            initTaskHandlers();
+            loadTasks();
+
             showPopup("Login successful!", "success");
 
         } catch (error) {
@@ -114,10 +107,11 @@ function toggleAuthModal() {
     }
 }
 
-async function logoutUser() {
+function logoutUser() {
     localStorage.removeItem('authToken');
     updateAuthUI(false);
     showPopup("Logged out successfully!", "success");
+    location.reload();
 }
 
 function updateAuthUI(isAuthenticated) {
@@ -126,7 +120,5 @@ function updateAuthUI(isAuthenticated) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('authToken');
-    if (token) {
-        updateAuthUI(true);
-    }
+    if (token) updateAuthUI(true);
 });
