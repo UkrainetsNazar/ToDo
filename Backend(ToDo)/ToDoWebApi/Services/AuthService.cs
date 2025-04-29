@@ -39,7 +39,6 @@ public class AuthService : IAuthService
         {
             return new ResponseDTO
             {
-                Email = user.Email,
                 Token = _jwtService.GenerateToken(user.Id, user.Email!)
             };
         }

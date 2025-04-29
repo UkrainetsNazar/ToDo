@@ -54,8 +54,8 @@ public class TaskController : ControllerBase
         if (userId is null)
             return Unauthorized();
 
-        await _taskService.AddTaskAsync(userId, newTask);
-        return Ok("Task was added successfully");
+        var createdTask = await _taskService.AddTaskAsync(userId, newTask);
+        return Ok(createdTask);
     }
 
     [HttpPatch("{taskId}")]
@@ -78,5 +78,16 @@ public class TaskController : ControllerBase
 
         await _taskService.DeleteTaskAsync(userId, taskId);
         return Ok("Task was deleted successfully");
+    }
+
+    [HttpPatch("{taskId}/done")]
+    public async Task<IActionResult> MarkTaskAsDone(int taskId)
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if (userId is null)
+            return Unauthorized();
+
+        await _taskService.MarkTaskAsDoneAsync(userId, taskId);
+        return Ok("Task was marked as done");
     }
 }

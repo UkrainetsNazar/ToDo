@@ -9,9 +9,10 @@ export function initTaskHandlers() {
 
   async function loadTasks() {
     try {
-      const response = await fetch('https://your-api-endpoint.com/tasks', {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch('http://localhost:5114/task/active', {
         headers: {
-          'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+          'Authorization': `Bearer ${token}`
         }
       });
 
@@ -48,37 +49,35 @@ export function initTaskHandlers() {
         </button>
       </div>`;
 
-    li.querySelector(".complete-btn").addEventListener("click", async function() {
-      try {
-        const response = await fetch(`https://your-api-endpoint.com/tasks/${task.id}`, {
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
-          },
-          body: JSON.stringify({
-            
-          })
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to update task');
+      li.querySelector(".complete-btn").addEventListener("click", async function() {
+        try {
+          const response = await fetch(`http://localhost:5114/task/${task.id}/done`, {
+            method: 'PATCH',
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            }
+          });
+      
+          if (!response.ok) {
+            throw new Error('Failed to update task');
+          }
+      
+          li.classList.add('completed');
+          showPopup("Task marked as done!", "success");
+        } catch (error) {
+          showPopup("Failed to update task", "error");
+          console.error(error);
         }
+      });
 
-        li.classList.toggle('completed');
-        showPopup("Task status updated!", "success");
-      } catch (error) {
-        showPopup("Failed to update task", "error");
-        console.error(error);
-      }
-    });
-
-    li.querySelector(".delete-btn").addEventListener("click", async function() {
+    // DELETE TASK
+    li.querySelector(".delete-btn").addEventListener("click", async function () {
       try {
-        const response = await fetch(`https://your-api-endpoint.com/tasks/${task.id}`, {
+        const token = localStorage.getItem('authToken');
+        const response = await fetch(`http://localhost:5114/task/${task.id}`, {
           method: 'DELETE',
           headers: {
-            'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+            'Authorization': `Bearer ${token}`
           }
         });
 
@@ -105,14 +104,15 @@ export function initTaskHandlers() {
     }
 
     try {
-      const response = await fetch('https://your-api-endpoint.com/tasks', {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch('http://localhost:5114/task', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-
+          text: value
         })
       });
 
@@ -133,7 +133,7 @@ export function initTaskHandlers() {
 
   sendBtn.addEventListener("click", addTask);
 
-  input.addEventListener("keypress", function(event) {
+  input.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
       addTask();
     }

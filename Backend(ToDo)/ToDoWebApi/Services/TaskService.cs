@@ -24,12 +24,13 @@ public class TaskService : ITaskService
         return _mapper.Map<List<GetTasksDTO>>(allUserTasks);
     }
 
-    public async Task AddTaskAsync(string userId, CreateTaskDTO createTaskDto)
+    public async Task<GetTasksDTO> AddTaskAsync(string userId, CreateTaskDTO createTaskDto)
     {
         var taskEntity = _mapper.Map<MyTask>(createTaskDto);
         taskEntity.UserId = userId;
 
-        await _taskRepository.AddTaskAsync(userId, taskEntity);
+        var createdTask = await _taskRepository.AddTaskAsync(userId, taskEntity);
+        return _mapper.Map<GetTasksDTO>(createdTask);
     }
 
     public async Task DeleteTaskAsync(string userId, int taskId)

@@ -32,10 +32,10 @@ export function initAuthHandlers() {
         e.preventDefault();
         
         const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
+        const passwordHash = document.getElementById('register-password').value;
         const confirmPassword = document.getElementById('register-confirm').value;
 
-        if (password !== confirmPassword) {
+        if (passwordHash !== confirmPassword) {
             showPopup("Passwords don't match!", "error");
             return;
         }
@@ -48,7 +48,7 @@ export function initAuthHandlers() {
                 },
                 body: JSON.stringify({
                     email,
-                    password
+                    passwordHash
                 })
             });
 
@@ -72,7 +72,7 @@ export function initAuthHandlers() {
         e.preventDefault();
         
         const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
+        const passwordHash = document.getElementById('login-password').value;
 
         try {
             const response = await fetch(`${API_BASE_URL}${AUTH_ENDPOINTS.login}`, {
@@ -82,7 +82,7 @@ export function initAuthHandlers() {
                 },
                 body: JSON.stringify({
                     email,
-                    password
+                    passwordHash
                 })
             });
 

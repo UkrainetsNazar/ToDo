@@ -37,12 +37,14 @@ public class TaskRepository : ITaskRepository
         return task;
     }
 
-    public async Task AddTaskAsync(string userId, MyTask myTask)
+    public async Task<MyTask> AddTaskAsync(string userId, MyTask myTask)
     {
         myTask.UserId = userId;
 
         await _dbContext.Tasks.AddAsync(myTask);
         await _dbContext.SaveChangesAsync();
+
+        return myTask;
     }
 
     public async Task UpdateTaskAsync(string userId, int taskId, MyTask updatedTask)
@@ -53,7 +55,6 @@ public class TaskRepository : ITaskRepository
         if (existingTask == null)
             throw new Exception($"Task with id {taskId} not found or access denied");
 
-        existingTask.IsDone = updatedTask.IsDone;
         existingTask.Text = updatedTask.Text;
 
         await _dbContext.SaveChangesAsync();

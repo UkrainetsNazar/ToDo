@@ -22,7 +22,7 @@ public class AuthController : ControllerBase
             throw new HttpException("Invalid email format.", HttpStatusCode.BadRequest);
 
         await _authService.RegisterAsync(model);
-        return Ok("Registration succeed");
+        return Ok(new { message = "Registration succeed" });
     }
 
     [HttpPost("login")]
