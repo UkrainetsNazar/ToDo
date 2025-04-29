@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 [Authorize]
 [ApiController]
-[Route("api/task")]
+[Route("task")]
 public class TaskController : ControllerBase
 {
     private readonly ITaskService _taskService;

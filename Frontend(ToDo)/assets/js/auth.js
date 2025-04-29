@@ -1,10 +1,9 @@
 import { showPopup } from './popup.js';
 
-const API_BASE_URL = 'https://your-api-endpoint.com/api';
+const API_BASE_URL = 'http://localhost:5114';
 const AUTH_ENDPOINTS = {
     register: '/auth/register',
     login: '/auth/login',
-    logout: '/auth/logout'
 };
 
 const authOverlay = document.getElementById('auth-overlay');
@@ -32,7 +31,6 @@ export function initAuthHandlers() {
     registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const name = document.getElementById('register-name').value;
         const email = document.getElementById('register-email').value;
         const password = document.getElementById('register-password').value;
         const confirmPassword = document.getElementById('register-confirm').value;
@@ -49,7 +47,6 @@ export function initAuthHandlers() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    name,
                     email,
                     password
                 })
@@ -109,7 +106,6 @@ export function initAuthHandlers() {
     });
 }
 
-// Допоміжні функції
 function toggleAuthModal() {
     if (localStorage.getItem('authToken')) {
         logoutUser();
@@ -119,22 +115,9 @@ function toggleAuthModal() {
 }
 
 async function logoutUser() {
-    try {
-        const response = await fetch(`${API_BASE_URL}${AUTH_ENDPOINTS.logout}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
-            }
-        });
-
-        if (response.ok) {
-            localStorage.removeItem('authToken');
-            updateAuthUI(false);
-            showPopup("Logged out successfully!", "success");
-        }
-    } catch (error) {
-        console.error('Logout error:', error);
-    }
+    localStorage.removeItem('authToken');
+    updateAuthUI(false);
+    showPopup("Logged out successfully!", "success");
 }
 
 function updateAuthUI(isAuthenticated) {
