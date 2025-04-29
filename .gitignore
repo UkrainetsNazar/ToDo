@@ -1,0 +1,9 @@
+Backend(ToDo)/.DS_Store
+Backend(ToDo)/ToDoWebApi/.DS_Store
+.DS_Store
+
+Backend(ToDo)/ToDoWebApi/appsettings.json
+Backend(ToDo)/ToDoWebApi/appsettings.Development.json
+
+Backend(ToDo)/ToDoWebApi/bin/
+Backend(ToDo)/ToDoWebApi/obj/
