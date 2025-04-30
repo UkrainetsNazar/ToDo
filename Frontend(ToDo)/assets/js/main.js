@@ -1,6 +1,6 @@
 import { initTaskHandlers, loadTasks } from './tasks.js';
 import { initThemeToggle } from './theme.js';
-import { initAuthHandlers } from './auth.js';
+import { initAuthHandlers, initUnauthorizedHandlers } from './auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     initAuthHandlers();
@@ -9,5 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('authToken')) {
         initTaskHandlers();
         loadTasks();
+    }else{
+        initUnauthorizedHandlers();
     }
 });

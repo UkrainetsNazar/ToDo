@@ -12,8 +12,19 @@ const userAuthBtn = document.getElementById('user-auth-btn');
 const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
 const tabBtns = document.querySelectorAll('.tab-btn');
+const closeAuthBtn = document.getElementById('close-auth-btn');
 
 export function initAuthHandlers() {
+    if (closeAuthBtn) {
+        closeAuthBtn.addEventListener('click', closeAuthModal);
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !authOverlay.classList.contains('hidden')) {
+            closeAuthModal();
+        }
+    });
+
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             tabBtns.forEach(b => b.classList.remove('active'));
@@ -93,10 +104,9 @@ export function initAuthHandlers() {
                 throw new Error(data.message || 'Login failed');
             }
 
-            console.log(data.token);
             localStorage.setItem('authToken', data.token);
             updateAuthUI(true);
-            authOverlay.classList.add('hidden');
+            closeAuthModal();
             loginForm.reset();
             
             showPopup("Login successful!", "success");
@@ -108,6 +118,10 @@ export function initAuthHandlers() {
             console.error('Login error:', error);
         }
     });
+}
+
+function closeAuthModal() {
+    authOverlay.classList.add('hidden');
 }
 
 function toggleAuthModal() {
@@ -126,6 +140,27 @@ async function logoutUser() {
 
 function updateAuthUI(isAuthenticated) {
     userAuthBtn.textContent = isAuthenticated ? 'Logout' : 'Login';
+}
+
+export function initUnauthorizedHandlers() {
+    const sendBtn = document.getElementById("send-task");
+    const input = document.getElementById("input-line");
+    
+    function handleUnauthorizedAction() {
+        showPopup("Please login to add tasks", "error");
+    }
+    
+    if (sendBtn) {
+        sendBtn.addEventListener("click", handleUnauthorizedAction);
+    }
+    
+    if (input) {
+        input.addEventListener("keypress", (event) => {
+            if (event.key === "Enter") {
+                handleUnauthorizedAction();
+            }
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
