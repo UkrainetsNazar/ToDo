@@ -25,7 +25,7 @@ public class TaskController : ControllerBase
         return Ok(taskList);
     }
 
-    [HttpGet("done")]
+    [HttpGet("completed")]
     public async Task<IActionResult> GetAllDoneUserTasks()
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

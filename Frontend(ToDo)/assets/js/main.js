@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('authToken')) {
         initTaskHandlers();
         loadTasks();
-    }else{
+    } else {
         initUnauthorizedHandlers();
     }
 });
