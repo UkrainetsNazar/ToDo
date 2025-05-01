@@ -14,25 +14,33 @@ public class AuthService : IAuthService
         _userManager = userManager;
     }
 
-    public async Task<IdentityResult> RegisterAsync(AuthDTO model)
+    public async Task<ResponseDTO> RegisterAsync(AuthDTO model)
     {
         var existingUser = await _userManager.FindByEmailAsync(model.Email!);
         if (existingUser != null)
         {
-            var error = IdentityResult.Failed(new IdentityError
+            return new ResponseDTO
             {
-                Code = "DuplicateEmail",
-                Description = "Email already exist."
-            });
-
-            return error;
+                Succeeded = false,
+                Errors = new List<string> { "Email already exists." }
+            };
         }
 
         var user = _mapper.Map<AuthDTO, AppUser>(model);
         var result = await _userManager.CreateAsync(user, model.PasswordHash!);
 
-        return result;
+        if (!result.Succeeded)
+        {
+            return new ResponseDTO
+            {
+                Succeeded = false,
+                Errors = result.Errors.Select(e => e.Description).ToList()
+            };
+        }
+
+        return new ResponseDTO { Succeeded = true };
     }
+
 
     public async Task<ResponseDTO> LoginAsync(AuthDTO model)
     {

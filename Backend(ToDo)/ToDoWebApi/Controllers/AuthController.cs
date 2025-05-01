@@ -33,6 +33,7 @@ public class AuthController : ControllerBase
         return Ok(new { Message = "Registration succeeded" });
     }
 
+
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] AuthDTO model)
     {

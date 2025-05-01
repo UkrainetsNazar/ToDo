@@ -1,5 +1,6 @@
 import { showPopup } from './popup.js';
 let list;
+let taskHandlersInitialized = false;
 const API_BASE_URL = 'http://localhost:5114';
 const TASKS_ENDPOINTS = {
     create: `/task`,
@@ -90,6 +91,9 @@ export async function loadTasks(filterType = 'active') {
 }
 
 export function initTaskHandlers() {
+    if (taskHandlersInitialized) return;
+    taskHandlersInitialized = true;
+
     list = document.getElementById("task-list");
     const sendBtn = document.getElementById("send-task");
     const input = document.getElementById("input-line");

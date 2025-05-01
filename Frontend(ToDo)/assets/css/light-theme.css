@@ -478,7 +478,7 @@ main {
     white-space: normal;
     max-width: 100%;
     overflow: hidden;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -685,4 +685,12 @@ main {
     padding: 20px;
     border-radius: 8px;
     width: 300px;
+}
+
+.error-msg {
+    color: #ff4444;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    height: 1rem;
+    display: block;
 }
