@@ -1,10 +1,6 @@
 import { showPopup } from './popup.js';
-import { loadTasks, initTaskHandlers } from './tasks.js';
+import { loadTasks } from './tasks.js';
 
-let unauthorizedHandlers = {
-    click: null,
-    keypress: null
-};
 const API_BASE_URL = 'http://localhost:5114';
 const AUTH_ENDPOINTS = {
     register: '/auth/register',
@@ -67,18 +63,6 @@ export function initAuthHandlers() {
             const data = await response.json();
     
             if (!response.ok) {
-                const getFirstError = (errorData) => {
-                    if (errorData.message) return errorData.message;
-                    if (errorData.errors) {
-                        if (Array.isArray(errorData.errors)) {
-                            return errorData.errors[0]?.description || errorData.errors[0] || 'Login failed';
-                        }
-                        if (typeof errorData.errors === 'string') return errorData.errors;
-                        return Object.values(errorData.errors)[0]?.[0] || 'Login failed';
-                    }
-                    return 'Login failed';
-                };
-    
                 const firstError = getFirstError(data);
                 
                 if (firstError.toLowerCase().includes('email')) {
@@ -88,7 +72,6 @@ export function initAuthHandlers() {
                 } else {
                     showPopup(firstError, 'error');
                 }
-    
                 return;
             }
     
@@ -105,55 +88,39 @@ export function initAuthHandlers() {
 
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-    clearErrors('login-form');
-    
-    const email = document.getElementById('login-email').value;
-    const passwordHash = document.getElementById('login-password').value;
+        clearErrors('login-form');
+        
+        const email = document.getElementById('login-email').value;
+        const passwordHash = document.getElementById('login-password').value;
 
-    try {
-        const response = await fetch(`${API_BASE_URL}${AUTH_ENDPOINTS.login}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, passwordHash })
-        });
+        try {
+            const response = await fetch(`${API_BASE_URL}${AUTH_ENDPOINTS.login}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, passwordHash })
+            });
 
-        const data = await response.json();
+            const data = await response.json();
 
-        if (!response.ok) {
-            const getFirstError = (errorData) => {
-                if (errorData.message) return errorData.message;
-                if (errorData.errors) {
-                    if (Array.isArray(errorData.errors)) {
-                        return errorData.errors[0]?.description || errorData.errors[0] || 'Login failed';
-                    }
-                    if (typeof errorData.errors === 'string') return errorData.errors;
-                    return Object.values(errorData.errors)[0]?.[0] || 'Login failed';
+            if (!response.ok) {
+                const firstError = getFirstError(data);
+                
+                if (firstError.toLowerCase().includes('email')) {
+                    showFieldError('login-email', firstError);
+                } else if (firstError.toLowerCase().includes('password')) {
+                    showFieldError('login-password', firstError);
+                } else {
+                    showPopup(firstError, 'error');
                 }
-                return 'Login failed';
-            };
-
-            const firstError = getFirstError(data);
-            
-            if (firstError.toLowerCase().includes('email')) {
-                showFieldError('login-email', firstError);
-            } else if (firstError.toLowerCase().includes('password')) {
-                showFieldError('login-password', firstError);
-            } else {
-                showPopup(firstError, 'error');
+                return;
             }
-
-            return;
-        }
     
             localStorage.setItem('authToken', data.token);
             updateAuthUI(true);
             closeAuthModal();
             loginForm.reset();
 
-            cleanupUnauthorizedHandlers();
-    
             showPopup("Login successful!", "success");
-            initTaskHandlers();
             loadTasks();
     
         } catch (error) {
@@ -185,54 +152,6 @@ function updateAuthUI(isAuthenticated) {
     userAuthBtn.textContent = isAuthenticated ? 'Logout' : 'Login';
 }
 
-export function initUnauthorizedHandlers() {
-    const sendBtn = document.getElementById("send-task");
-    const input = document.getElementById("input-line");
-    
-    if (unauthorizedHandlers.click) {
-        sendBtn.removeEventListener("click", unauthorizedHandlers.click);
-    }
-    if (unauthorizedHandlers.keypress) {
-        input.removeEventListener("keypress", unauthorizedHandlers.keypress);
-    }
-    
-    function handleUnauthorizedAction() {
-        showPopup("Please login to add tasks", "error");
-    }
-    
-    unauthorizedHandlers.click = handleUnauthorizedAction;
-    unauthorizedHandlers.keypress = handleUnauthorizedAction;
-    
-    sendBtn.addEventListener("click", handleUnauthorizedAction);
-    input.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-            handleUnauthorizedAction();
-        }
-    });
-}
-
-export function cleanupUnauthorizedHandlers() {
-    const sendBtn = document.getElementById("send-task");
-    const input = document.getElementById("input-line");
-    
-    if (sendBtn && unauthorizedHandlers.click) {
-        sendBtn.removeEventListener("click", unauthorizedHandlers.click);
-    }
-    if (input && unauthorizedHandlers.keypress) {
-        input.removeEventListener("keypress", unauthorizedHandlers.keypress);
-    }
-    
-    unauthorizedHandlers.click = null;
-    unauthorizedHandlers.keypress = null;
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-        updateAuthUI(true);
-    }
-});
-
 function clearErrors(formId) {
     document.querySelectorAll(`#${formId} .error-msg`).forEach(div => {
         div.textContent = '';
@@ -243,7 +162,17 @@ function showFieldError(inputId, message) {
     const errorDiv = document.getElementById(`${inputId}-error`);
     if (errorDiv) {
         errorDiv.textContent = message;
-    } else {
-        console.error(`Error div not found for: ${inputId}`);
     }
+}
+
+function getFirstError(errorData) {
+    if (errorData.message) return errorData.message;
+    if (errorData.errors) {
+        if (Array.isArray(errorData.errors)) {
+            return errorData.errors[0]?.description || errorData.errors[0] || 'Request failed';
+        }
+        if (typeof errorData.errors === 'string') return errorData.errors;
+        return Object.values(errorData.errors)[0]?.[0] || 'Request failed';
+    }
+    return 'Request failed';
 }

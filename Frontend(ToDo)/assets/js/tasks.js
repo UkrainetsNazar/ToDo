@@ -100,6 +100,12 @@ export function initTaskHandlers() {
     const filterSelect = document.getElementById("filter-select");
 
     async function addTask() {
+        console.log("Token:"+localStorage.getItem('authToken'))
+        if (!localStorage.getItem('authToken')) {
+            showPopup("Please login to add tasks", "error");
+            return;
+        }
+
         const value = input.value.trim();
         if (!value) {
             showPopup("You can't send empty task!", "error");
@@ -107,7 +113,7 @@ export function initTaskHandlers() {
         }
 
         try {
-            const response = await fetch(`${API_BASE_URL}${TASKS_ENDPOINTS.create}`, {
+            const response = await fetch(`${API_BASE_URL}/task`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -116,13 +122,15 @@ export function initTaskHandlers() {
                 body: JSON.stringify({ text: value })
             });
 
-            if (!response.ok) throw new Error('Failed to add task');
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || 'Failed to add task');
+            }
             
             const newTask = await response.json();
             
             if (!filterSelect || filterSelect.value === 'active') {
                 list.appendChild(createTaskElement(newTask, 'active'));
-                //showPopup("Task added successfully!", "success");
             }
             
             input.value = "";
@@ -132,19 +140,12 @@ export function initTaskHandlers() {
             }
             
         } catch (error) {
-            showPopup("Failed to add task", "error");
+            showPopup(error.message || "Failed to add task", "error");
             console.error(error);
         }
     }
 
-    sendBtn.addEventListener("click", addTask);
-    input.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") addTask();
-    });
-
-    if (filterSelect) {
-        filterSelect.addEventListener("change", () => {
-            loadTasks(filterSelect.value);
-        });
-    }
+    if (sendBtn) sendBtn.addEventListener("click", addTask);
+    if (input) input.addEventListener("keypress", (e) => e.key === "Enter" && addTask());
+    if (filterSelect) filterSelect.addEventListener("change", () => loadTasks(filterSelect.value));
 }
