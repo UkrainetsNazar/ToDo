@@ -81,7 +81,7 @@ export async function loadTasks(filterType = 'active') {
         list.innerHTML = '';
         
         tasks.forEach(task => {
-            list.appendChild(createTaskElement(task, filterType));
+            list.prepend(createTaskElement(task, filterType));
         });
 
     } catch (error) {
@@ -122,7 +122,7 @@ export function initTaskHandlers() {
             
             if (!filterSelect || filterSelect.value === 'active') {
                 list.appendChild(createTaskElement(newTask, 'active'));
-                showPopup("Task added successfully!", "success");
+                //showPopup("Task added successfully!", "success");
             }
             
             input.value = "";

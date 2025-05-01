@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initThemeToggle();
     
     if (localStorage.getItem('authToken')) {
+        console.log(localStorage.getItem('authToken'));
         cleanupUnauthorizedHandlers();
         initTaskHandlers();
         loadTasks();
