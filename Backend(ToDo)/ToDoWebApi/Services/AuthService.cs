@@ -13,7 +13,7 @@ public class AuthService : IAuthService
         _mapper = mapper;
         _userManager = userManager;
     }
-    
+
     public async Task<IdentityResult> RegisterAsync(AuthDTO model)
     {
         var existingUser = await _userManager.FindByEmailAsync(model.Email!);
@@ -43,7 +43,7 @@ public class AuthService : IAuthService
             return new ResponseDTO
             {
                 Succeeded = false,
-                Errors = new List<string> { "Користувач з таким email не знайдений." }
+                Errors = new List<string> { "User with this email not found." }
             };
         }
 
@@ -54,7 +54,7 @@ public class AuthService : IAuthService
             return new ResponseDTO
             {
                 Succeeded = false,
-                Errors = new List<string> { "Невірний пароль." }
+                Errors = new List<string> { "Wrong password." }
             };
         }
 

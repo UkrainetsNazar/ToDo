@@ -2,10 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 public class AuthDTO
 {
-    [Required(ErrorMessage = "Email є обов'язковим")]
-    [EmailAddress(ErrorMessage = "Невірний формат email")]
+    [Required(ErrorMessage = "Email is required")]
+    [EmailAddress(ErrorMessage = "Wrong format of email")]
     public string? Email { get; set; }
 
-    [Required(ErrorMessage = "Пароль є обов'язковим")]
+    [Required(ErrorMessage = "Password is required")]
     public string? PasswordHash { get; set; }
 }
