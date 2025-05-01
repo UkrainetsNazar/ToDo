@@ -1,4 +1,3 @@
-using System.Net;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using ToDoWebApi.Models;
@@ -14,18 +13,25 @@ public class AuthService : IAuthService
         _mapper = mapper;
         _userManager = userManager;
     }
-    public async Task RegisterAsync(AuthDTO model)
+    
+    public async Task<IdentityResult> RegisterAsync(AuthDTO model)
     {
+        var existingUser = await _userManager.FindByEmailAsync(model.Email!);
+        if (existingUser != null)
+        {
+            var error = IdentityResult.Failed(new IdentityError
+            {
+                Code = "DuplicateEmail",
+                Description = "Email already exist."
+            });
 
-        if (await _userManager.FindByEmailAsync(model.Email!) != null)
-            throw new HttpException("Email is already exists.", HttpStatusCode.BadRequest);
+            return error;
+        }
 
         var user = _mapper.Map<AuthDTO, AppUser>(model);
-
         var result = await _userManager.CreateAsync(user, model.PasswordHash!);
 
-        if (!result.Succeeded)
-            throw new HttpException(string.Join(" ", result.Errors.Select(x => x.Description)), HttpStatusCode.BadRequest);
+        return result;
     }
 
     public async Task<ResponseDTO> LoginAsync(AuthDTO model)
@@ -33,18 +39,29 @@ public class AuthService : IAuthService
         var user = await _userManager.FindByEmailAsync(model.Email!);
 
         if (user == null)
-            throw new HttpException("User doesn`t exist", HttpStatusCode.BadRequest);
-
-        if (await _userManager.CheckPasswordAsync(user, model.PasswordHash!))
         {
             return new ResponseDTO
             {
-                Token = _jwtService.GenerateToken(user.Id, user.Email!)
+                Succeeded = false,
+                Errors = new List<string> { "Користувач з таким email не знайдений." }
             };
         }
-        else
+
+        var isPasswordValid = await _userManager.CheckPasswordAsync(user, model.PasswordHash!);
+
+        if (!isPasswordValid)
         {
-            throw new UnauthorizedAccessException("Invalid password");
+            return new ResponseDTO
+            {
+                Succeeded = false,
+                Errors = new List<string> { "Невірний пароль." }
+            };
         }
+
+        return new ResponseDTO
+        {
+            Succeeded = true,
+            Token = _jwtService.GenerateToken(user.Id, user.Email!)
+        };
     }
 }

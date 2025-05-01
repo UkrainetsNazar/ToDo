@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-using System.Net;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -15,20 +13,46 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] AuthDTO model)
     {
-        if (string.IsNullOrWhiteSpace(model.Email) || string.IsNullOrWhiteSpace(model.PasswordHash))
-            throw new HttpException("Email and password are required.", HttpStatusCode.BadRequest);
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage)
+                .ToList();
 
-        if (!new EmailAddressAttribute().IsValid(model.Email))
-            throw new HttpException("Invalid email format.", HttpStatusCode.BadRequest);
+            return BadRequest(new { Errors = errors });
+        }
 
-        await _authService.RegisterAsync(model);
-        return Ok(new { message = "Registration succeed" });
+        var result = await _authService.RegisterAsync(model);
+
+        if (!result.Succeeded)
+        {
+            return BadRequest(new { Errors = result.Errors });
+        }
+
+        return Ok(new { Message = "Registration succeeded" });
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] AuthDTO model)
     {
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage)
+                .ToList();
+
+            return BadRequest(new { Errors = errors });
+        }
+
         var response = await _authService.LoginAsync(model);
-        return Ok(response);
+
+        if (!response.Succeeded)
+        {
+            return BadRequest(new { Errors = response.Errors });
+        }
+
+        return Ok(new { Token = response.Token });
     }
 }

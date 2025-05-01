@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Identity;
+
 public interface IAuthService{
-    Task RegisterAsync(AuthDTO model);
+    Task<IdentityResult> RegisterAsync(AuthDTO model);
     Task<ResponseDTO> LoginAsync(AuthDTO model);
 } 
