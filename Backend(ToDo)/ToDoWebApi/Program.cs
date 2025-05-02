@@ -98,13 +98,15 @@ builder.Services.AddScoped<JwtService>();
 // 🌍 CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder =>
+    options.AddPolicy("ClientAppPolicy", builder =>
     {
-        builder.AllowAnyOrigin()
+        builder.WithOrigins("http://127.0.0.1:5500")
+               .AllowAnyHeader()
                .AllowAnyMethod()
-               .AllowAnyHeader();
+               .AllowCredentials();
     });
 });
+
 
 // 📦 Controllers & Swagger
 builder.Services.AddControllers();
@@ -123,7 +125,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // 🌍 CORS
-app.UseCors("AllowAll");
+app.UseCors("ClientAppPolicy");
 
 // 🔐 Auth
 app.UseAuthentication();
