@@ -116,7 +116,7 @@ export function initAuthHandlers() {
             }
     
             localStorage.setItem('authToken', data.token);
-            updateAuthUI(true);
+            checkAuthToken();
             closeAuthModal();
             loginForm.reset();
 
@@ -144,12 +144,12 @@ function toggleAuthModal() {
 
 async function logoutUser() {
     localStorage.removeItem('authToken');
-    updateAuthUI(false);
+    checkAuthToken();
     showPopup("Logged out successfully!", "success");
 }
 
-function updateAuthUI(isAuthenticated) {
-    userAuthBtn.textContent = isAuthenticated ? 'Logout' : 'Login';
+export function checkAuthToken() {
+    userAuthBtn.textContent = localStorage.getItem('authToken') ? 'Logout' : 'Login';
 }
 
 function clearErrors(formId) {
