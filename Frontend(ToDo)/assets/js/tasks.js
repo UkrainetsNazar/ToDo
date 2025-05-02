@@ -125,6 +125,8 @@ export function initTaskHandlers() {
             if (!response.ok) {
                 const error = await response.json();
                 throw new Error(error.message || 'Failed to add task');
+            }else{
+                showPopup("Task added successfully!", "success")
             }
             
             const newTask = await response.json();
