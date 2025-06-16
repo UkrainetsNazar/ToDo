@@ -10,6 +10,7 @@ The application is designed with a clean separation between frontend and backend
 - Tasks are stored securely in a server-side database 💾
 - Filter tasks by criteria (e.g. completed, active) 🔍
 - Responsive and minimalistic UI for a smooth user experience 🌟
+- Button to change themes (dark 🌙 and light ☀️)
 
 ## Built with
 
