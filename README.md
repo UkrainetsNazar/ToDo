@@ -24,3 +24,9 @@ The application is designed with a clean separation between frontend and backend
 ![Screenshot1](./ToDo_Client/assets/screenshots/Screenshot%202025-06-16%20at%2012.58.01.png)
 ### Light theme
 ![Screenshot2](./ToDo_Client/assets/screenshots/Screenshot%202025-06-16%20at%2013.01.26.png)
+
+## How to run
+
+Follow this commands to run this project:
+
+1. Open your terminal and run this command: git clone 
