@@ -20,6 +20,7 @@ The application is designed with a clean separation between frontend and backend
 - **Database:** In-Memory DB (but you can connect any database you wish)
 
 ## Overview
-
+### Dark theme
 ![Screenshot1](./ToDo_Client/assets/screenshots/Screenshot%202025-06-16%20at%2012.58.01.png)
+### Light theme
 ![Screenshot2](./ToDo_Client/assets/screenshots/Screenshot%202025-06-16%20at%2013.01.26.png)
