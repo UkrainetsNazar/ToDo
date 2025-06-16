@@ -30,9 +30,10 @@ The application is designed with a clean separation between frontend and backend
 
 ## Overview
 ### Dark theme
-<img src="./ToDo_Client/assets/screenshots/Screenshot%202025-06-16%20at%2012.58.01.png" width="400" />
+<img src="./ToDo_Client/assets/screenshots/Screenshot%202025-06-16%20at%2012.58.01.png" width="500" />
+
 ### Light theme
-<img src="./ToDo_Client/assets/screenshots/Screenshot%202025-06-16%20at%2013.01.26.png" width="400" />
+<img src="./ToDo_Client/assets/screenshots/Screenshot%202025-06-16%20at%2013.01.26.png" width="500" />
 
 ## How to run
 
