@@ -11,6 +11,7 @@ The application is designed with a clean separation between frontend and backend
 - Filter tasks by criteria (e.g. completed, active) 🔍
 - Responsive and minimalistic UI for a smooth user experience 🌟
 - Button to change themes (dark 🌙 and light ☀️)
+- Beautiful popup notifications to keep users informed or warn them about errors ❗
 
 ## Built with
 
