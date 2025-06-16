@@ -18,3 +18,8 @@ The application is designed with a clean separation between frontend and backend
 - **Frontend:** HTML, CSS, JavaScript (Vanilla)
 - **Backend:** ASP.NET Core (with REST API)
 - **Database:** In-Memory DB (but you can connect any database you wish)
+
+## Overview
+
+![Screenshot1](./ToDo_Client/assets/screenshots/Screenshot%202025-06-16%20at%2012.58.01.png)
+![Screenshot2](./ToDo_Client/assets/screenshots/Screenshot%202025-06-16%20at%2013.01.26.png)
