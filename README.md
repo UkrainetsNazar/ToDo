@@ -3,6 +3,15 @@
 ToDo is a **full-stack task management application** that allows users to register, login, and manage their personal tasks.  
 The application is designed with a clean separation between frontend and backend, offering a simple yet functional solution for everyday task tracking.
 
+## 📚 Table of Contents
+
+- [Features](#features)
+- [Built with](#built-with)
+- [Overview](#overview)
+- [How to run](#how-to-run)
+
+---
+
 ## Features
 
 - User registration and authentication 🔑
