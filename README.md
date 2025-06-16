@@ -27,6 +27,21 @@ The application is designed with a clean separation between frontend and backend
 
 ## How to run
 
-Follow this commands to run this project:
+Follow these instructions to get the project up and running:
 
-1. Open your terminal and run this command: git clone 
+### 1️⃣ Run the backend server:
+
+1. Open your terminal.
+2. Clone the repository:
+git clone https://github.com/UkrainetsNazar/ToDo.git
+3. Navigate to the backend directory:
+cd ToDo/ToDO_Server/ToDoWebApi
+4. Start the application:
+dotnet run
+
+### 2️⃣ Run the frontend:
+1. Navigate to the frontend directory:
+cd ToDo/ToDO_Client
+2. Open the index.html file in your preferred browser (for example, Chrome, Firefox, or Edge).
+
+### ✅ The application’s UI should now be visible in your browser.
